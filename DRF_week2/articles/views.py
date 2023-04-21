@@ -6,7 +6,7 @@ from articles.serializers import ArticleSerializer
 from rest_framework import status # 상태 보내줄 때 사용
 from rest_framework.generics import get_object_or_404 # 없는 글 조회 에러처리에 사용
 from rest_framework.views import APIView # 클래스형 뷰 만들 때 사용
-
+from drf_yasg.utils import swagger_auto_schema
 
 # Create your views here.
 
@@ -22,7 +22,9 @@ class ArticleList(APIView):
         articles = Article.objects.all() # 데이터 가져오기
         serializer = ArticleSerializer(articles, many = True) # 데이터 보여주기
         return Response(serializer.data)
+    
     # CREATE
+    @swagger_auto_schema(request_body = ArticleSerializer)
     def post(self, request, format=None): # => request.method == 'POST':
         serializer = ArticleSerializer(data = request.data) # 데이터 받아오기
         if serializer.is_valid(): # 유효성 검사 통과
@@ -31,7 +33,6 @@ class ArticleList(APIView):
         else: # 유효성 검사 만족 X -> 입력값에 문제
             print(serializer.errors) 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) # 에러를 반환, 잘못된 요청 상태
-
 
 
 class ArticleDetail(APIView):
@@ -56,7 +57,7 @@ class ArticleDetail(APIView):
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+'''
 # ------------------------------- 함수형 뷰 ------------------------------- 
 
 
@@ -107,3 +108,4 @@ def articleDetailAPI(request,article_id):
         article = get_object_or_404(Article, id = article_id)
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+'''
