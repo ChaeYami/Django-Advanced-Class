@@ -19,6 +19,7 @@ from rest_framework.generics import get_object_or_404 # 없는 글 조회 에러
 #     serializer = ArticleSerializer(articles)
 #     return Response(serializer.data)
 
+
 #전체 데이터
 @api_view(['GET','POST'])
 def articleAPI(request):
