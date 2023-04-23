@@ -56,6 +56,7 @@ class ArticleDetail(APIView):
         article = get_object_or_404(Article, id = article_id)
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
 
 '''
 # ------------------------------- 함수형 뷰 ------------------------------- 
