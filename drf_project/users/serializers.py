@@ -7,24 +7,23 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
-        
+
     # 회원가입
     def create(self, validated_data):
-        user =  super().create(validated_data)
+        user = super().create(validated_data)
         password = user.password
-        user.set_password(password) # 비밀번호 해싱
-        user.save() # DB에 저장
+        user.set_password(password)  # 비밀번호 해싱
+        user.save()  # DB에 저장
         return user
-    
+
     # 회원 정보 수정
     def update(self, validated_data):
-        user =  super().create(validated_data)
+        user = super().create(validated_data)
         password = user.password
-        user.set_password(password) # 비밀번호 해싱
-        user.save() # DB에 저장
+        user.set_password(password)  # 비밀번호 해싱
+        user.save()  # DB에 저장
         return user
-    
-    
+
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -32,7 +31,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
 
         # Add custom claims
-        token['email'] = user.email # 만든 User 모델에 맞게
+        token["email"] = user.email  # 만든 User 모델에 맞게
         # ...
 
         return token
